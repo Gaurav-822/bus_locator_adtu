@@ -6,18 +6,18 @@
 
 {% block main %}
 <div class="log">
-    <h1>LOGIN</h1>
+    <h1 class="left-align">LOGIN</h1>
     <hr>
     <form action="/login" method="post">
         <div class="mb-3">
-            <input autocomplete="off" autofocus class="form-control" id="username" name="username" placeholder="Username" type="text">
+            <input autocomplete="off" autofocus class="w3-input w3-border w3-animate-input" style="width:50%;" id="username" name="username" placeholder="Username" type="text">
         </div>
         <div class="mb-3">
-            <input class="form-control" id="password" name="password" placeholder="Password" type="password">
+            <input class="w3-input w3-border w3-animate-input" style="width:50%;" id="password" name="password" placeholder="Password" type="password">
         </div>
-        <button class="btn btn-primary" type="submit">Log In</button>
+        <button class="btn btn-primary left-align" type="submit">Log In</button>
     </form>
-    <p style="color: #ff0000;">Register if you are new.</p>
+    <p class="left-align" style="color: #ff0000;">Register if you are new.</p>
 </div>
 
 <script>

@@ -1,0 +1,16 @@
+body {
+    background-image: url("/static/assets/background.jpg");
+    background-attachment: fixed;
+    margin: top;
+}
+
+        /* Custom CSS */
+        .left-align {
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .navbar-nav .nav-link,
+    .navbar-brand {
+        font-weight: bold;
+    }

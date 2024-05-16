@@ -11,7 +11,7 @@ date_time = datetime.now()
 from helpers import apology, login_required
 
 # Configure application
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -52,7 +52,7 @@ def after_request(response):
 @app.route("/", methods=['GET', 'POST'])
 @login_required
 def index():
-    return render_template('index.html')
+    return render_template('login.html')
 
 @app.route('/update_location', methods=['POST'])
 def update_location():

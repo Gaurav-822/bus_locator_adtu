@@ -5,17 +5,17 @@
 {% endblock %}
 
 {% block main %}
-    <h1>REGISTER AS A STUDENT</h1>
+    <h1 class="left-align">REGISTER AS A STUDENT</h1>
     <form action="/register_student" method="post">
         <div class="mb-3">
-            <input autocomplete="off" autofocus class="form-control" id="username" name="username" placeholder="Username" type="text">
+            <input autocomplete="off" autofocus class="w3-input w3-border w3-animate-input" style="width:50%;" id="username" name="username" placeholder="Username" type="text">
         </div>
         <div class="mb-3">
-            <input autocomplete="off" autofocus class="form-control" id="roll" name="roll" placeholder="Roll No." type="number">
+            <input autocomplete="off" autofocus class="w3-input w3-border w3-animate-input" style="width:50%;" id="roll" name="roll" placeholder="Roll No." type="number">
         </div>
         <div class="mb-3">
-            <label for="busStopSelect" class="form-label">Choose Bus Stop:</label>
-            <select class="form-select" id="busStopSelect" name="busStop">
+            <label for="busStopSelect" class="form-label left-align">Choose Bus Stop:</label>
+            <select class="form-select left-align" id="busStopSelect" name="busStop" style="width: 50%;">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -24,10 +24,10 @@
             </select>
         </div>
         <div class="mb-3">
-            <input class="form-control" id="password" name="password" placeholder="Password" type="password">
+            <input class="w3-input w3-border w3-animate-input" style="width:50%;" id="password" name="password" placeholder="Password" type="password">
         </div>
         <div class="mb-3">
-            <input class="form-control" id="confirmation" name="confirmation" placeholder="Re-enter Password" type="password">
+            <input class="w3-input w3-border w3-animate-input" style="width:50%;" id="confirmation" name="confirmation" placeholder="Re-enter Password" type="password">
         </div>
         <button class="btn btn-primary" type="submit" id="loginButton">Log In</button>
     </form>
