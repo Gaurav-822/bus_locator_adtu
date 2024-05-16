@@ -1,0 +1,133 @@
+{% extends "layout.html" %}
+{% block title %}
+    Home Page
+{% endblock %}
+{% block main %}
+<div class="map">
+    <!-- <h1>MAP</h1> -->
+    <!-- <p style="display: none;">Latitude: <span id="latitude" style="display: none;">{{ lat }}</span></p> -->
+    <!-- <p style="display: none;">Longitude: <span id="longitude" style="display: none;">{{ long }}</span></p> -->
+    <!-- <p style="display: none;">Longitude: <span id="driver" style="display: none;">{{ driver }}</span></p> -->
+    <!-- <p style="display: none;">Longitude: <span id="res" >{{ res }}</span></p> -->
+    <div id="map" style="height: 600px; width: 80%; margin: 0 auto;"></div>
+
+    <script>
+        // var lat = parseFloat(document.getElementById('latitude').innerText);
+        var lat = {{lat}};
+        var long = {{long}};
+        var driver = {{driver}};
+
+
+        // when STUDENT signs IN //
+        if (driver == '0') {
+        // Initialize the map and set its view to the specified coordinates and zoom level
+        var map = L.map('map').setView([lat, long], 13);
+
+        // Add the OpenStreetMap tile layer
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // ADD MARKERS OF ALL BUSES
+        
+        var res = {{ res | tojson | safe }};
+
+        var nl = lat;
+        var nlong = long;
+        var distance = (lat - res[0][1])*(lat - res[0][1]) + (long - res[0][2])*(long - res[0][2]);
+
+        for (var i = 0; i < res.length; i++) {
+            var name = res[i][0];
+            var l = res[i][1];
+            var lo = res[i][2];
+
+            temp = (lat - res[i][1])*(lat - res[i][1]) + (long - res[i][2])*(long - res[i][2]);
+            if (temp < distance) {
+                distance = temp;
+                nl = res[i][1];
+                nlong = res[i][2];
+            }
+        
+            L.marker([l, lo]).addTo(map)
+                .bindPopup(name)
+                .openPopup();
+        }
+    
+        
+
+        // Add a marker with a popup of destination
+        L.marker([26.2019351, 91.8615084]).addTo(map)
+            .bindPopup('ADTU')
+            .openPopup();
+
+
+        // Add a marker with a popup of stopage
+        L.marker([lat, long]).addTo(map)
+            .bindPopup('Stoppage')
+            .openPopup();
+
+
+        // Define the coordinates for the line, to set the bounds of the map
+        var latlngs = [
+            [lat, long],  // Starting point, driver's point
+            [nl, nlong],   // driver's point need update
+            [26.2023351, 91.8618084]   // Ending point
+        ];
+        var polyline = L.polyline(latlngs, {color: 'transparent'}).addTo(map);
+
+        // First line (green), from my stoppage to bus location
+        var latlngs1 = [
+            [lat, long], 
+            [nl, nlong]
+        ];
+
+        // Create the first polyline with green color and add it to the map
+        var polyline1 = L.polyline(latlngs1, {color: 'red'}).addTo(map);
+
+        // Second line (red), from bus location to adtu
+        var latlngs2 = [
+            [nl, nlong],
+            [26.2023351, 91.8618084]   // Ending point, fixed
+        ];
+
+        // Create the second polyline with red color and add it to the map
+        var polyline2 = L.polyline(latlngs2, {color: 'green'}).addTo(map);
+
+        // Zoom the map to the polyline
+        map.fitBounds(polyline.getBounds());
+    }
+    // when DRIVER signs In
+    if (driver == '1') {
+        // Initialize the map and set its view to the specified coordinates and zoom level
+        var map = L.map('map').setView([lat, long], 13);
+
+        // Add the OpenStreetMap tile layer
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Add a marker with a popup of destination
+        L.marker([26.2019351, 91.8615084]).addTo(map)
+            .bindPopup('ADTU')
+            .openPopup();
+
+
+        // Add a marker with driver's curr location
+        L.marker([lat, long]).addTo(map)
+            .bindPopup('BUS')
+            .openPopup();
+
+
+        // Define the coordinates for the line, to set the bounds of the map
+        var latlngs = [
+            [lat, long],  // Starting point, driver's point
+            [26.2023351, 91.8618084]   // Ending point
+        ];
+        var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
+        // Zoom the map to the polyline
+        map.fitBounds(polyline.getBounds());
+    }
+    </script>
+
+</div>
+{% endblock %}

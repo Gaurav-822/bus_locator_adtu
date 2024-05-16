@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+<div class="log">
+    {% if driver == 0 %}
+    <h1>LOGIN</h1>
+    <hr>
+    <form action="/location" method="post">
+        <div class="mb-3">
+            <label for="busStopSelect" class="form-label">Choose Bus Stop:</label>
+            <select class="form-select" id="busStopSelect" name="busStop">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+        <button class="btn btn-primary" type="submit">UPDATE</button>
+    </form>
+    {% else %}
+    <h1>UPDATE</h1>
+    <hr>
+    <form action="/location" method="post">
+        <button class="btn btn-primary" type="submit">UPDATE LOCATION</button>
+    </form>
+    {% endif %}
+</div>
+
+{% endblock %}
